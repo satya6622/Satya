@@ -43,7 +43,7 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="bg-portfolio-lightgray py-16 md:py-24">
+    <section id="experience" className="bg-portfolio-lightgray py-20 md:py-28">
       <div className="section-container">
         <div className="flex items-center gap-3 mb-6">
           <Briefcase className="text-portfolio-purple" size={28} />
@@ -53,38 +53,46 @@ const Experience = () => {
         <div className="mt-12 flex flex-col md:flex-row gap-8">
           {/* Tabs */}
           <div className="md:w-1/4">
-            <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-4 md:pb-0">
+            <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible pb-4 md:pb-0">
               {experiences.map((exp, index) => (
-                <Button
+                <button
                   key={exp.company}
-                  variant={activeTab === index ? "default" : "outline"}
-                  className={`whitespace-nowrap md:whitespace-normal ${
-                    activeTab === index ? "bg-portfolio-purple" : "border-portfolio-purple text-portfolio-purple"
-                  }`}
+                  className={`relative px-4 py-3 text-left whitespace-nowrap md:whitespace-normal rounded-lg transition-all duration-300
+                    ${activeTab === index 
+                      ? "bg-gradient-to-r from-portfolio-purple to-portfolio-teal text-white shadow-lg" 
+                      : "bg-white hover:bg-gray-50"
+                    }`}
                   onClick={() => setActiveTab(index)}
                 >
-                  {exp.company}
-                </Button>
+                  <span className="font-medium">{exp.company}</span>
+                  <span className={`block text-xs mt-1 ${activeTab === index ? 'text-white/80' : 'text-gray-500'}`}>
+                    {exp.duration}
+                  </span>
+                </button>
               ))}
             </div>
           </div>
 
           {/* Content */}
-          <div className="md:w-3/4 bg-white p-6 rounded-lg shadow-md">
+          <div className="md:w-3/4 glass-card bg-white p-8 rounded-xl shadow-lg">
             {experiences.map((exp, index) => (
               <div
                 key={exp.company}
-                className={`${activeTab === index ? "block" : "hidden"} animate-fade-in`}
+                className={`${activeTab === index ? "block animate-fade-in" : "hidden"}`}
               >
-                <h3 className="text-2xl font-bold">
+                <h3 className="text-2xl font-bold mb-2">
                   {exp.position} <span className="text-portfolio-purple">@ {exp.company}</span>
                 </h3>
-                <p className="text-gray-500 mb-4">{exp.duration}</p>
-                <ul className="space-y-3">
+                <p className="text-gray-500 mb-6">{exp.duration}</p>
+                <ul className="space-y-4">
                   {exp.description.map((item, i) => (
-                    <li key={i} className="flex items-start">
-                      <span className="text-portfolio-purple mr-2 mt-1">▹</span>
-                      <span>{item}</span>
+                    <li key={i} className="flex items-start" style={{ animationDelay: `${i * 0.1 + 0.2}s` }}>
+                      <span className="text-portfolio-purple mr-3 mt-1.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                      </span>
+                      <span className="text-gray-700">{item}</span>
                     </li>
                   ))}
                 </ul>

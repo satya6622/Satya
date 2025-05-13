@@ -1,6 +1,7 @@
 
 import { Folder } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Projects = () => {
   const projects = [
@@ -43,7 +44,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-16 md:py-24">
+    <section id="projects" className="py-20 md:py-28 bg-section-pattern">
       <div className="section-container">
         <div className="flex items-center gap-3 mb-6">
           <Folder className="text-portfolio-purple" size={28} />
@@ -51,24 +52,29 @@ const Projects = () => {
         </div>
         
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <div
+          {projects.map((project, index) => (
+            <Card
               key={project.title}
-              className="project-card bg-white rounded-lg overflow-hidden shadow-md"
+              className="project-card overflow-hidden border-0 rounded-xl bg-transparent h-full"
+              style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
+              <div className="relative h-56 overflow-hidden rounded-t-xl">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-portfolio-darkblue/70 z-10"></div>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                />
+              </div>
+              
+              <CardContent className="p-6 glass-card rounded-b-xl">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 <p className="text-gray-600 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-gray-100 text-xs rounded"
+                      className="px-2.5 py-1 bg-gray-100/80 text-xs rounded-full font-medium"
                     >
                       {tech}
                     </span>
@@ -89,7 +95,7 @@ const Projects = () => {
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-portfolio-purple hover:bg-portfolio-purple/80"
+                    className="bg-gradient-to-r from-portfolio-purple to-portfolio-teal hover:shadow-md"
                   >
                     <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -100,8 +106,8 @@ const Projects = () => {
                     </a>
                   </Button>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
