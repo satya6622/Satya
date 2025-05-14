@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 //comment
 
 export default defineConfig(({ mode }) => ({
-  base: "/my-portfolio-verse/",
+  base: mode === 'production' ? '/Satya/' : '/',
   server: {
     port: 5173,
   },
